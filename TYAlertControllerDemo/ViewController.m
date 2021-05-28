@@ -31,7 +31,7 @@
     
     TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"TYAlertView" message:@"This is a message, the alert view containt text and textfiled. "];
     
-    [alertView addAction:[TYAlertAction actionWithTitle:@"取消" style:TYAlertActionStyleCancel handler:^(TYAlertAction *action) {
+    [alertView addAction:[TYAlertAction actionWithTitle:@"取消"  style:TYAlertActionStyleCancel titleColor:[UIColor blackColor] handler:^(TYAlertAction *action) {
         NSLog(@"%@",action.title);
     }]];
     

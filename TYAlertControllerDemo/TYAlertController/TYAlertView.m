@@ -18,16 +18,34 @@
 
 @implementation TYAlertAction
 
-+ (instancetype)actionWithTitle:(NSString *)title style:(TYAlertActionStyle)style handler:(void (^)(TYAlertAction *))handler
-{
-    return [[self alloc]initWithTitle:title style:style handler:handler];
++ (instancetype)actionWithTitle:(NSString *)title
+                          style:(TYAlertActionStyle)style
+                        handler:(void (^)(TYAlertAction *action))handler{
+    return [[self alloc]initWithTitle:title
+                                style:style
+                              titleColor:[UIColor whiteColor]
+                              handler:handler];
 }
 
-- (instancetype)initWithTitle:(NSString *)title style:(TYAlertActionStyle)style handler:(void (^)(TYAlertAction *))handler
++ (instancetype)actionWithTitle:(NSString *)title
+                          style:(TYAlertActionStyle)style
+                     titleColor:(UIColor *)titleColor
+                        handler:(void (^)(TYAlertAction *action))handler{
+    return [[self alloc]initWithTitle:title
+                                style:style
+                              titleColor:titleColor
+                              handler:handler];
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                        style:(TYAlertActionStyle)style
+                   titleColor:(UIColor *)titleColor
+                      handler:(void (^)(TYAlertAction *))handler
 {
     if (self = [super init]) {
         _title = title;
         _style = style;
+        _titleColor = titleColor;
         _handler = handler;
         _enabled = YES;
         
@@ -40,6 +58,7 @@
     TYAlertAction *action = [[self class]allocWithZone:zone];
     action.title = self.title;
     action.style = self.style;
+    action.titleColor = self.titleColor;
     return action;
 }
 
@@ -216,11 +235,12 @@
     button.clipsToBounds = YES;
     button.layer.cornerRadius = _buttonCornerRadius;
     [button setTitle:action.title forState:UIControlStateNormal];
+    [button setTitleColor:action.titleColor forState:UIControlStateNormal];
     button.titleLabel.font = _buttonFont;
     button.backgroundColor = [self buttonBgColorWithStyle:action.style];
     button.enabled = action.enabled;
     button.tag = kButtonTagOffset + _buttons.count;
-    button.translatesAutoresizingMaskIntoConstraints = NO;
+    button.translatesAutoresizingMaskIntoConstraints = NO;;
     [button addTarget:self action:@selector(actionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [_buttonContentView addSubview:button];

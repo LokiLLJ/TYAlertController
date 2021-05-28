@@ -16,10 +16,18 @@ typedef NS_ENUM(NSUInteger, TYAlertActionStyle) {
 
 @interface TYAlertAction : NSObject <NSCopying>
 
-+ (instancetype)actionWithTitle:(NSString *)title style:(TYAlertActionStyle)style handler:(void (^)(TYAlertAction *action))handler;
++ (instancetype)actionWithTitle:(NSString *)title
+                          style:(TYAlertActionStyle)style
+                        handler:(void (^)(TYAlertAction *action))handler;
+
++ (instancetype)actionWithTitle:(NSString *)title
+                          style:(TYAlertActionStyle)style
+                     titleColor:(UIColor *)titleColor
+                        handler:(void (^)(TYAlertAction *action))handler;
 
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) TYAlertActionStyle style;
+@property (nonatomic, strong) UIColor *titleColor;
 @property (nonatomic, getter=isEnabled) BOOL enabled;
 
 @end
